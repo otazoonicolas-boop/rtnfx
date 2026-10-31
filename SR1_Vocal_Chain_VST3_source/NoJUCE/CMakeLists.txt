@@ -19,6 +19,10 @@ add_library(wasm3 STATIC
   ${W3}/m3_function.c ${W3}/m3_info.c ${W3}/m3_module.c ${W3}/m3_parse.c ${W3}/m3_validate.c)
 target_include_directories(wasm3 PUBLIC ${W3})
 target_compile_options(wasm3 PRIVATE -w)
+target_compile_definitions(wasm3 PRIVATE d_m3FoldSetLocal=0 d_m3FuseBranch=0)
+if(MSVC)
+  target_compile_options(wasm3 PRIVATE /Zc:preprocessor)
+endif()
 set_target_properties(wasm3 PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 smtg_add_vst3plugin(SR1VocalChain ${CMAKE_CURRENT_SOURCE_DIR}/SR1Vst3.cpp ${ROOT}/Source/SR1Engine.cpp
