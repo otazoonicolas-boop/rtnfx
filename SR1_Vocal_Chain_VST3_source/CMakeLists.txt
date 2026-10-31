@@ -26,7 +26,10 @@ set_target_properties(wasm3 PROPERTIES POSITION_INDEPENDENT_CODE ON)
 if(MSVC)
   target_compile_options(wasm3 PRIVATE /w)
 endif()
-
+target_compile_definitions(wasm3 PRIVATE d_m3FoldSetLocal=0 d_m3FuseBranch=0)
+if(MSVC)
+  target_compile_options(wasm3 PRIVATE /Zc:preprocessor)
+endif()
 if(CMAKE_CROSSCOMPILING)
   set(SR1_MANIFEST FALSE)   # el helper de manifiesto VST3 no se puede ejecutar al cross-compilar
 else()
